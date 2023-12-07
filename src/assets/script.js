@@ -49,16 +49,18 @@ let cart = [];
   - if the product is not already in the cart, add it to the cart
 */
 
+// helper function to get the product by productId from the given product list:
+function getProductByIdFromList(productId, productList) {
+  return productList.find((product) => product.productId === productId);
+}
+
 function addProductToCart(productId){
-  //let product = products.find(product => product.productId === productId);  
-  products.forEach(function(item){
-    if(item.productId==productId){
-      item.quantity += 1;
-      if(!cart.includes(item)){
-        cart.push(item);
-      }
-    }
-  });
+  let product = getProductByIdFromList(productId, products)
+  if (product){
+  product.quantity += 1;
+  if(!cart.includes(product))
+    cart.push(product);
+  }
 }
 
 /* Create a function named increaseQuantity that takes in the productId as an argument
@@ -67,9 +69,9 @@ function addProductToCart(productId){
 */
 
 function increaseQuantity(productId){
-  let item = products.find(product => product.productId === productId);  
-  if (item){
-    item.quantity+=1;
+  let product = getProductByIdFromList(productId, products)  
+  if (product){
+    product.quantity+=1;
   } 
 }
 
@@ -80,11 +82,11 @@ function increaseQuantity(productId){
 */
 
 function decreaseQuantity(productId){
-  let item = products.find(product => product.productId === productId);  
-  if (item){
-    item.quantity-=1;
+  let product = getProductByIdFromList(productId, products)  
+  if (product){
+    product.quantity-=1;
 
-    if(item.quantity===0)
+    if(product.quantity===0)
       removeProductFromCart(productId);
   } 
 }
